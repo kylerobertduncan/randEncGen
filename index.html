@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Encounter Generator</title>
+</head>
+<body>
+  <h1>Random Encounter Generator</h1>
+
+  <section class="criteria">
+    <form>
+      <label for="noOfPlayers">Number of Players:</label>
+      <input type="number" name="noOfPlayers" id="noOfPlayers">
+      <label for="playerLevel">Player Level:</label>
+      <input type="number" name="playerLevel" id="playerLevel">
+      <label for="monsterGroup">Number of Monsters:</label>
+      <select name="monsterGroup" id="monsterGroup">
+        <option value="single">Single</option>
+        <option value="group">Group</option>
+        <option value="horde">Horde</option>
+      </select>
+      <button type="submit">Generate!</button>
+    </form>
+  </section>
+
+  <section class="monsters">
+
+  </section>
+  
+  <script src='./script.js'></script>
+</body>
+</html>
