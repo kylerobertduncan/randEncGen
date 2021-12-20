@@ -2,7 +2,7 @@
 > **Minimum Viable Product:** Randomly create combat encounters for D&D 5e based on a party size and level
 
 ## Stretch Goals
-- [ ] choose single, group or horde of monsters
+- [x] choose single, group or horde of monsters
 > group = 2/3 number of party, horde = 1.5 number of party ??
 - [ ] choose easy, medium, hard or deadly
 > option for higher levels, either maximum recommended (1/3 of daily) or daily budget

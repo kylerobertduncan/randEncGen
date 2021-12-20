@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Encounter Generator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Random Encounter Generator</h1>
@@ -12,21 +13,22 @@
   <section class="criteria">
     <form>
       <label for="noOfPlayers">Number of Players:</label>
-      <input type="number" name="noOfPlayers" id="noOfPlayers">
+      <input type="number" name="noOfPlayers" id="noOfPlayers" value=4 >
       <label for="playerLevel">Player Level:</label>
-      <input type="number" name="playerLevel" id="playerLevel">
-      <label for="monsterGroup">Number of Monsters:</label>
-      <select name="monsterGroup" id="monsterGroup">
-        <option value="single">Single</option>
-        <option value="group">Group</option>
-        <option value="horde">Horde</option>
+      <input type="number" name="playerLevel" id="playerLevel" value=1 >
+      <label for="difficulty">Encounter Difficulty:</label>
+      <select name="difficulty" id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected >Medium</option>
+        <option value="hard">Hard</option>
+        <option value="deadly">Deadly</option>
       </select>
       <button type="submit">Generate!</button>
     </form>
   </section>
 
   <section class="monsters">
-
+    <ul class="byDifficulty"></ul>
   </section>
   
   <script src='./script.js'></script>
