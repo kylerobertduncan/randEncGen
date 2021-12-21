@@ -4,7 +4,7 @@
 ## Stretch Goals
 - [x] choose single, group or horde of monsters
 > group = 2/3 number of party, horde = 1.5 number of party ??
-- [ ] choose easy, medium, hard or deadly
+- [x] choose easy, medium, hard or deadly
 > option for higher levels, either maximum recommended (1/3 of daily) or daily budget
 - [ ] choose 'skew' to easier or deadlier
 > easier skew would choose the highest difficulty below the suggested XP, deadlier would choose the lowest difficulty above the suggested XP
@@ -13,20 +13,24 @@
 - [ ] filter monsters by environment
 
 ## Reuqired Math Data
-- (Adjusted) XP per player by level, for Easy to Deady
-- [ (Adjusted) Adventuring Day XP per player by level ]
-- Mulitplier of number of monsters (+/- for large/small parties)
+- [x] (Adjusted) XP per player by level, for Easy to Deady
+- [x] [ (Adjusted) Adventuring Day XP per player by level ]
+- [x] Mulitplier of number of monsters (+/- for large/small parties)
 > <3 players: +1 multiplier, >5 players: -1 multiplier
-- Monster XP by CR
+- [x] Monster XP by CR
 
 ## Pseudocode
+- [x] connect to D&D API
+
 ### All
-- [ ] Get numbers of players *(Note change in multiplier if <3 or >5)*
-- [ ] Get level of players
+- [x] Get numbers of players *(Note change in multiplier if <3 or >5)*
+- [x] Get level of players
 - [ ] Get single/group/horder choice
-- [ ] *Get preferred encounter difficulty*
-- [ ] Calculate Adjusted XP at preferred/all difficulty level(s)
+- [x] *Get preferred encounter difficulty*
+- [x] Calculate Adjusted XP at preferred/all difficulty level(s)
 > e.g. 4x Level 3 players, hard encounter: 225 x 4 = 900
+**- OR -**
+- [ ] Calculate Monster CR at preferred/all group sizes ?? (below)
 
 ### Single
 **per difficulty level**
@@ -39,11 +43,11 @@
 
 ### Group/Horde
 **per difficulty level**
-- [ ] calculate size of group or horde
+- [x] calculate size of group or horde
 > e.g. 4 players: horde is 4 x 1.5 = 6 creatures
-- [ ] find multiplier, inc. for small/large party
+- [x] find multiplier, inc. for small/large party
 > e.g. 4 players: no change to multipler: 6 creatures = x2 multiplier
-- [ ] calculate unadjusted XP value per monster
+- [x] calculate unadjusted XP value per monster
 > e.g. hard encounter = 900; 900 / 2 = 450; 450 / 6 = 75 per monster
 
 *as per single monster*
