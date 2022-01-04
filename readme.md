@@ -1,17 +1,6 @@
 # Random Encounter Generator
 > **Minimum Viable Product:** Randomly create combat encounters for D&D 5e based on a party size and level
 
-## Stretch Goals
-- [x] choose single, group or horde of monsters
-> group = 2/3 number of party, horde = 1.5 number of party ??
-- [x] choose easy, medium, hard or deadly
-> option for higher levels, either maximum recommended (1/3 of daily) or daily budget
-- [ ] choose 'skew' to easier or deadlier
-> easier skew would choose the highest difficulty below the suggested XP, deadlier would choose the lowest difficulty above the suggested XP
-- [ ] combine players at different levels
-- [ ] filter monsters by creature type
-- [ ] filter monsters by environment
-
 ## Reuqired Math Data
 - [x] (Adjusted) XP per player by level, for Easy to Deady
 - [x] [ (Adjusted) Adventuring Day XP per player by level ]
@@ -53,6 +42,17 @@
 *as per single monster*
 - [ ] Get CR closest to adjusted XP for encounter *(take higher if no more than 10% above?)*
 > e.g. 75 * 1.1 = 82.5 (max), CR1/2 = 100, CR1/4 = 50; choose CR1/4
-- [ ] Request to D&D API for creatures of selected CR
+- [x] Request to D&D API for creatures of selected CR
 - [ ] Choose one creature at random from that collection
 - [ ] Display to page with count (e.g.: 6) *(with link to data)*
+
+## Stretch Goals
+- [x] choose single, group or horde of monsters
+> group = 2/3 number of party, horde = 1.5 number of party ??
+- [x] choose easy, medium, hard or deadly
+> option for higher levels, either maximum recommended (1/3 of daily) or daily budget
+- [ ] choose 'skew' to easier or deadlier
+> easier skew would choose the highest difficulty below the suggested XP, deadlier would choose the lowest difficulty above the suggested XP
+- [ ] combine players at different levels
+- [ ] filter monsters by creature type
+- [ ] filter monsters by environment

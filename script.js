@@ -67,33 +67,72 @@ app.calculateXP = (criteria) => {
 }
 
 app.calculateCR = (monsterXP) => {
-  console.log(monsterXP);
+  const monsterCR = {}
   // calculate XP per monster based on settings for single, group, horde
-  // calculate best CR for required monster XP value
-  app.getAPIdata();
+  for (let size in monsterXP) {
+    // calculate best CR for required monster XP value
+    for (let xp in app.gamedata.xpByCR) {
+      if ( +xp <= monsterXP[size] ) {
+        monsterCR[size] = app.gamedata.xpByCR[xp];
+      }
+    }
+  }
+  app.getMonsterList(monsterCR);
 }
 
-app.getAPIdata = () => {
-  const url = new URL('https://www.dnd5eapi.co/api/monsters');
-  url.search = new URLSearchParams({
-    reqUrl: url,
-    challenge_rating: 3
-  })
+app.getMonsterList = (monsterCR) => {
+  const monsterLists = {}
 
-  fetch(url)
-    .then( response => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        throw new Error();
-      }
+  for (const size in monsterCR) {
+    const url = new URL('https://www.dnd5eapi.co/api/monsters');
+    url.search = new URLSearchParams({
+      reqUrl: url,
+      challenge_rating: monsterCR[size]
     })
-    .then( jsonResult => {
-      console.log('monsters:', jsonResult);
-    })
-    .catch( error => {
-      alert('Error:', error);
-    })
+    monsterLists.promises = {
+      group: {},
+      horde: {},
+      single: {}
+    }
+
+    const monsterFetch = async () => {
+      console.log(size);
+      monsterLists.promises[size] = await fetch(url);
+      // const promiseObject = await fetch(url);
+      console.log(monsterLists.promises[size]);
+      const monsterData = await monsterLists.promises[size].json()
+      console.log(monsterData.results);
+      monsterLists[size] = monsterData.results;
+    }
+    monsterFetch();
+    // fetch(url)
+    //   .then( response => {
+    //     if (response.status === 200) {
+    //       return response.json();
+    //     } else {
+    //       throw new Error();
+    //     }
+    //   })
+    //   .then( jsonResult => {
+    //     monsterLists[size] = jsonResult.results;
+    //   })
+    //   .catch( error => {
+    //     alert('Error:', error);
+    //   })
+  }
+  Promise.all([monsterLists.promises.group, monsterLists.promises.horde, monsterLists.promises.single]).then(
+    app.selectRandom(monsterLists)
+  )
+}
+
+app.selectRandom = (monsterLists) => {
+  console.log('choose random monsters!', monsterLists);
+  const randomMonsters = {}
+  // for (let category in monsterLists) {
+  //   console.log('this loop is running');
+  //   console.log(category);
+  // }
+
 }
 
 app.gamedata = {
