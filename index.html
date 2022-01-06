@@ -11,6 +11,7 @@
   <h1>Random Encounter Generator</h1>
 
   <section class="criteria">
+    <h2>Criteria</h2>
     <form class="searchData">
       <div>
         <label for="noOfPlayers">Number of Players:</label>
@@ -27,6 +28,7 @@
           <option value="medium" selected >Medium</option>
           <option value="hard">Hard</option>
           <option value="deadly">Deadly</option>
+          <!-- <option value="daily">Full Day</option> -->
         </select>
       </div>
       <button type="submit">Generate!</button>
@@ -34,7 +36,8 @@
   </section>
 
   <section class="monsters">
-    <ul class="byDifficulty"></ul>
+    <h2>Results</h2>
+    <ul class="byNumberCategory"></ul>
   </section>
   
   <script src='./script.js'></script>

@@ -13,3 +13,51 @@ html {
   margin: 20px;
   text-align: center;
 }
+
+h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+form div,
+form button {
+  margin-top: 10px;
+}
+
+[type="submit"] {
+  color: red;
+  padding: 20px;
+}
+
+.byNumberCategory {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.category {
+  color: darkgray;
+  font-style: italic;
+  margin-bottom: 10px;
+  text-transform: lowercase;
+}
+
+.creatureCard {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.creatureCard h3 {
+  font-size: 1rem;
+}
+
+.creatureCard p {
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}

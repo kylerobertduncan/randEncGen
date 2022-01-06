@@ -1,7 +1,6 @@
 const app = {}
 
 app.init = () => {
-  console.log('app loaded!');
   app.formSetup();
 }
 
@@ -14,13 +13,13 @@ app.formSetup = () => {
     e.preventDefault();
 
     // get the values from the form
-    const searchCriteria = {}
-    searchCriteria.noOfPlayers = document.getElementById('noOfPlayers').value,
-    searchCriteria.playerLevel = document.getElementById('playerLevel').value,
-    searchCriteria.difficulty = document.getElementById('difficulty').value,
+    app.searchCriteria = {}
+    app.searchCriteria.noOfPlayers = document.getElementById('noOfPlayers').value,
+    app.searchCriteria.playerLevel = document.getElementById('playerLevel').value,
+    app.searchCriteria.difficulty = document.getElementById('difficulty').value,
 
     // run the CR calculator with those settings
-    app.calculateXP(searchCriteria)
+    app.calculateXP(app.searchCriteria)
   })
 }
 
@@ -31,8 +30,8 @@ app.calculateXP = (criteria) => {
   const partyXP = noOfPlayers * app.gamedata.xpByLevel[difficulty][playerLevel];
   
   // determine group & horde size
-  const group = Math.ceil(noOfPlayers * 0.5);
-  const horde = Math.floor(noOfPlayers * 1.5);
+  const group = Math.ceil(noOfPlayers * 0.75);
+  const horde = Math.floor(noOfPlayers * 1.75);
   
   // calculate XP for single/group/horde
   const monsterXP = {
@@ -100,19 +99,87 @@ app.getMonsterList = async (monsterCR) => {
 app.selectRandom = (monsterLists) => {
   const randomMonsters = {}
   for (const category in monsterLists) {
-    // console.log(category, monsterLists[category]);
     const arrayLength = monsterLists[category].length;
     const randomIndex = Math.floor(Math.random() * arrayLength);
-    // console.log(monsterLists[category][randomIndex]);
     randomMonsters[category] = monsterLists[category][randomIndex];
   }
-  // console.log(randomMonsters);
   app.displayMonsters(randomMonsters);
 }
 
-app.displayMonsters = (randomMonsters) => {
-  console.log('ready to show some creatures!', randomMonsters);
+app.displayMonsters = async (randomMonsters) => {
+  const creaturesByCategory = document.querySelector('.byNumberCategory')
+  creaturesByCategory.innerHTML = '';
+  
+  // for each category:
+  for (const category in randomMonsters) {
+    // construct an li element to display that creature
+    const creatureCard = document.createElement('li');
+    creatureCard.className = `creatureCard ${category}`
+
+    // populate the moster card
+    const creatureCategory = document.createElement('p');
+    creatureCategory.textContent = category;
+    creatureCategory.className = 'category';
+    creatureCard.appendChild(creatureCategory);
+
+    const creatureName = document.createElement('h3');
+    creatureName.textContent = randomMonsters[category].name;
+    creatureCard.appendChild(creatureName);
+
+    // get the details of that creature from the API (inc. #, see line 34,35)
+    const url = new URL(`https://www.dnd5eapi.co${randomMonsters[category].url}`);
+    url.search = new URLSearchParams({
+      reqUrl: url,
+    })
+    const promiseObject = await fetch(url);
+    const monsterData = await promiseObject.json()
+    const { alignment, challenge_rating, size, type } = monsterData;
+
+    // convert CR decimals to fractions if applicable
+    let crFraction = challenge_rating;
+    if ( challenge_rating < 1 && challenge_rating !== 0 ) {
+      if (challenge_rating === 0.125) {
+        crFraction = '1/8';
+      } else if (challenge_rating === 0.25) {
+        crFraction = '1/4';
+      } else if (challenge_rating === 0.5) {
+        crFraction = '1/2';
+      }
+    }
+
+    const ccQuantityCR = document.createElement('p');
+    let quantity = 1;
+    if (category === 'group') {
+      quantity = Math.ceil(app.searchCriteria.noOfPlayers * 0.75)
+    } else if (category === 'horde') {
+      quantity = Math.floor(app.searchCriteria.noOfPlayers * 1.75)
+    }
+    ccQuantityCR.textContent = `${quantity}x  ${crFraction}CR`;
+    creatureCard.appendChild(ccQuantityCR)
+
+    const ccAlignment = document.createElement('p');
+    ccAlignment.textContent = alignment;
+    creatureCard.appendChild(ccAlignment)
+
+    const ccSizeType = document.createElement('p');
+    ccSizeType.textContent = `${size} ${type}`;
+    creatureCard.appendChild(ccSizeType)
+
+    const ccTotalXP = document.createElement('p');
+    // calculate total player xp gained
+    for (const xp in app.gamedata.xpByCR) {
+      if (app.gamedata.xpByCR[xp] === challenge_rating) {
+        ccTotalXP.textContent = `${xp * quantity}xp`;
+      }
+    }
+    creatureCard.appendChild(ccTotalXP)
+
+    // add the element to the page (append to .byNumberCategory ul)
+    creaturesByCategory.appendChild(creatureCard);
+  }
 }
+
+/* - - - - - required math data below - - - - -  */ 
 
 app.gamedata = {
   xpByLevel: {

@@ -16,35 +16,26 @@
 - [x] Get level of players
 - [ ] Get single/group/horder choice
 - [x] *Get preferred encounter difficulty*
-- [x] Calculate Adjusted XP at preferred/all difficulty level(s)
+- [ ] Calculate Adjusted XP at preferred/all difficulty level(s)
 > e.g. 4x Level 3 players, hard encounter: 225 x 4 = 900
 **- OR -**
-- [ ] Calculate Monster CR at preferred/all group sizes ?? (below)
+- [x] Calculate Monster CR at preferred/all group sizes ?? (below)
 
-### Single
-**per difficulty level**
+### per group category
 > (?) Check D&D API for CR value type!
-- [ ] Get CR closest to adjusted XP for encounter *(take higher if no more than 10% above?)*
+- [x] Get CR closest to adjusted XP for encounter *(take higher if no more than 10% above?)*
 > e.g. 900 * 1.1 = 990 (max), CR4 = 1100, CR3 = 700; choose CR3
-- [ ] Request to D&D API for creatures of selected CR
-- [ ] Choose one creature at random from that collection
+- [x] Request to D&D API for creatures of selected CR
+- [x] Choose one creature at random from that collection
 - [ ] Display to page *(with link to data)*
 
-### Group/Horde
-**per difficulty level**
+#### Group/Horde
 - [x] calculate size of group or horde
 > e.g. 4 players: horde is 4 x 1.5 = 6 creatures
 - [x] find multiplier, inc. for small/large party
 > e.g. 4 players: no change to multipler: 6 creatures = x2 multiplier
 - [x] calculate unadjusted XP value per monster
 > e.g. hard encounter = 900; 900 / 2 = 450; 450 / 6 = 75 per monster
-
-*as per single monster*
-- [ ] Get CR closest to adjusted XP for encounter *(take higher if no more than 10% above?)*
-> e.g. 75 * 1.1 = 82.5 (max), CR1/2 = 100, CR1/4 = 50; choose CR1/4
-- [x] Request to D&D API for creatures of selected CR
-- [ ] Choose one creature at random from that collection
-- [ ] Display to page with count (e.g.: 6) *(with link to data)*
 
 ## Stretch Goals
 - [x] choose single, group or horde of monsters
