@@ -5,40 +5,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Encounter Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@100;300;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="wrapper">
     
-    <h1>Random Encounter Generator</h1>
+    <header>
+      <h1>Random Encounter Generator</h1>
+      <p></p>
+    </header>
 
     <section class="criteria">
-      <h2>Criteria</h2>
+      <!-- <h2>Criteria</h2> -->
       <form class="searchData">
-        <div>
-          <label for="noOfPlayers">Number of Players:</label>
-          <input type="number" name="noOfPlayers" id="noOfPlayers" value=4 >
+        <div class="inputs">
+          <div>
+            <label for="noOfPlayers">Number of Players</label>
+            <input type="number" name="noOfPlayers" id="noOfPlayers" value=4 >
+            <label for="playerLevel">Player Level</label>
+            <input type="number" name="playerLevel" id="playerLevel" value=3 >
+          </div>
+          <div>
+            <label for="difficulty">Encounter Difficulty</label>
+            <select name="difficulty" id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard" selected>Hard</option>
+              <option value="deadly">Deadly</option>
+              <!-- <option value="daily">Full Day</option> -->
+            </select>
+          </div>
         </div>
-        <div>
-          <label for="playerLevel">Player Level:</label>
-          <input type="number" name="playerLevel" id="playerLevel" value=1 >
-        </div>
-        <div>
-          <label for="difficulty">Encounter Difficulty:</label>
-          <select name="difficulty" id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium" selected >Medium</option>
-            <option value="hard">Hard</option>
-            <option value="deadly">Deadly</option>
-            <!-- <option value="daily">Full Day</option> -->
-          </select>
-        </div>
-        <button type="submit">Generate!</button>
+        <button type="submit">Violence!</button>
       </form>
     </section>
 
     <section class="monsters">
-      <h2>Results</h2>
+      <!-- <h2>Results</h2> -->
       <ul class="byNumberCategory"></ul>
     </section>
 

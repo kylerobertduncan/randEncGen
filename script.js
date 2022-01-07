@@ -114,30 +114,51 @@ app.displayMonsters = async (randomMonsters) => {
   for (const category in randomMonsters) {
 
   // get the details of that creature from the API (inc. #, see line 34,35)
-    const url = new URL(`https://www.dnd5eapi.co${randomMonsters[category].url}`);
-    url.search = new URLSearchParams({
-      reqUrl: url,
-    })
-    const promiseObject = await fetch(url);
+    const promiseObject = await fetch(`https://www.dnd5eapi.co${randomMonsters[category].url}`);
     const monsterData = await promiseObject.json()
-    const { alignment, challenge_rating, index, size, type } = monsterData;
+    const { alignment, challenge_rating, index, name, size, type } = monsterData;
 
   // construct an li element to display that creature
     const creatureCard = document.createElement('li');
     creatureCard.className = `creatureCard ${category}`
 
   // create an anchor element to link to more details
-  
-  const ddbLink = document.createElement('a');
+    const ddbLink = document.createElement('a');
 
   // convert creature name to dndbeyond link
+    let customName = '';
+    
+    /* CHECK FOR WEIRD PUNCTUATION: E.g.: "Succubus/Incubus" */
+    const checkSlash = /\//ig;
+    const slashed = checkSlash.test(name);
+    
     /* CHECK FOR LYCANTHROPES: If creature index starts with "were", remove first hyphen onwards for link */
     const checkFangs = /^were/;
     const fullMoon = checkFangs.test(index);
-    if (fullMoon) {
+
+    /* CHECK FOR INSECT SWARM: swarm of insects (beetles, centipedes, spiders, wasps)  */
+    const bugCheck = /^swarm/;
+    const bugAlert = bugCheck.test(index);
+    const insectSwarm = /(beetles|centipedes|spiders|wasps)/;
+    const ewGrossBugs = insectSwarm.test(index);
+
+    if (slashed) {
+      const choicesArray = name.split('/');
+      const whichOne = Math.floor(Math.random() * choicesArray.length);
+      customName = choicesArray[whichOne];
+      ddbLink.href = `https://www.dndbeyond.com/monsters/${customName.toLowerCase()}`;
+    } else if (bugAlert && ewGrossBugs) {
+      const slicedBugs = index.split('-');
+      slicedBugs.splice(2, 0, 'insects');
+      const newIndex = slicedBugs.join('-');
+      ddbLink.href = `https://www.dndbeyond.com/monsters/${newIndex}`;
+    } else if (fullMoon) {
       const silverBullet = index.split('-');
       silverBullet.pop();
       ddbLink.href = `https://www.dndbeyond.com/monsters/${silverBullet[0]}`;
+      const silverBulletName = name.split(',');
+      silverBulletName.pop();
+      customName = silverBulletName[0];
     } else {
       ddbLink.href = `https://www.dndbeyond.com/monsters/${index}`;
     }
@@ -176,7 +197,11 @@ app.displayMonsters = async (randomMonsters) => {
 
   // add creature name, size, type and alignment
     const creatureName = document.createElement('h3');
-    creatureName.textContent = randomMonsters[category].name;
+    if (customName) {
+      creatureName.textContent = customName;
+    } else {
+      creatureName.textContent = randomMonsters[category].name;
+    }
     ddbLink.appendChild(creatureName);
 
     const ccSizeType = document.createElement('p');
