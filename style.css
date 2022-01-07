@@ -25,6 +25,20 @@ ul {
   padding: 0;
 }
 
+a {
+  color: black;
+  display: inline-block;
+  height: 100%;
+  text-decoration: none;
+  width: 100%;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 800px;
+  width: 80%;
+}
+
 form div,
 form button {
   margin-top: 10px;
@@ -49,15 +63,20 @@ form button {
 }
 
 .creatureCard {
-  border: 1px solid black;
-  padding: 20px;
+  border: 5px solid red;
+  border-radius: 20px;
+  max-width: 250px;
+  min-height: 325px;
+  padding: 10px;
 }
 
 .creatureCard h3 {
   font-size: 1rem;
+  margin-top: 20px;
 }
 
 .creatureCard p {
   font-size: 0.85rem;
+  margin-top: 5px;
   text-transform: capitalize;
 }

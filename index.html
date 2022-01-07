@@ -8,37 +8,45 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Random Encounter Generator</h1>
+  <div class="wrapper">
+    
+    <h1>Random Encounter Generator</h1>
 
-  <section class="criteria">
-    <h2>Criteria</h2>
-    <form class="searchData">
-      <div>
-        <label for="noOfPlayers">Number of Players:</label>
-        <input type="number" name="noOfPlayers" id="noOfPlayers" value=4 >
-      </div>
-      <div>
-        <label for="playerLevel">Player Level:</label>
-        <input type="number" name="playerLevel" id="playerLevel" value=1 >
-      </div>
-      <div>
-        <label for="difficulty">Encounter Difficulty:</label>
-        <select name="difficulty" id="difficulty">
-          <option value="easy">Easy</option>
-          <option value="medium" selected >Medium</option>
-          <option value="hard">Hard</option>
-          <option value="deadly">Deadly</option>
-          <!-- <option value="daily">Full Day</option> -->
-        </select>
-      </div>
-      <button type="submit">Generate!</button>
-    </form>
-  </section>
+    <section class="criteria">
+      <h2>Criteria</h2>
+      <form class="searchData">
+        <div>
+          <label for="noOfPlayers">Number of Players:</label>
+          <input type="number" name="noOfPlayers" id="noOfPlayers" value=4 >
+        </div>
+        <div>
+          <label for="playerLevel">Player Level:</label>
+          <input type="number" name="playerLevel" id="playerLevel" value=1 >
+        </div>
+        <div>
+          <label for="difficulty">Encounter Difficulty:</label>
+          <select name="difficulty" id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected >Medium</option>
+            <option value="hard">Hard</option>
+            <option value="deadly">Deadly</option>
+            <!-- <option value="daily">Full Day</option> -->
+          </select>
+        </div>
+        <button type="submit">Generate!</button>
+      </form>
+    </section>
 
-  <section class="monsters">
-    <h2>Results</h2>
-    <ul class="byNumberCategory"></ul>
-  </section>
+    <section class="monsters">
+      <h2>Results</h2>
+      <ul class="byNumberCategory"></ul>
+    </section>
+
+    <!-- <footer>
+      <a href="https://www.kylerobertduncan.com" rel="noopener" target="_blank">kylerobertduncan.com</a>
+    </footer> -->
+
+  </div>
   
   <script src='./script.js'></script>
 </body>

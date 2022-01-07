@@ -112,32 +112,44 @@ app.displayMonsters = async (randomMonsters) => {
   
   // for each category:
   for (const category in randomMonsters) {
-    // construct an li element to display that creature
-    const creatureCard = document.createElement('li');
-    creatureCard.className = `creatureCard ${category}`
 
-    // populate the moster card
-    const creatureCategory = document.createElement('p');
-    creatureCategory.textContent = category;
-    creatureCategory.className = 'category';
-    creatureCard.appendChild(creatureCategory);
-
-    const creatureName = document.createElement('h3');
-    creatureName.textContent = randomMonsters[category].name;
-    creatureCard.appendChild(creatureName);
-
-    // get the details of that creature from the API (inc. #, see line 34,35)
+  // get the details of that creature from the API (inc. #, see line 34,35)
     const url = new URL(`https://www.dnd5eapi.co${randomMonsters[category].url}`);
     url.search = new URLSearchParams({
       reqUrl: url,
     })
     const promiseObject = await fetch(url);
     const monsterData = await promiseObject.json()
-    const { alignment, challenge_rating, size, type } = monsterData;
+    const { alignment, challenge_rating, index, size, type } = monsterData;
 
-    // convert CR decimals to fractions if applicable
+  // construct an li element to display that creature
+    const creatureCard = document.createElement('li');
+    creatureCard.className = `creatureCard ${category}`
+
+  // create an anchor element to link to more details
+  
+  const ddbLink = document.createElement('a');
+
+  // convert creature name to dndbeyond link
+    /* CHECK FOR LYCANTHROPES: If creature index starts with "were", remove first hyphen onwards for link */
+    const checkFangs = /^were/;
+    const fullMoon = checkFangs.test(index);
+    if (fullMoon) {
+      const silverBullet = index.split('-');
+      silverBullet.pop();
+      ddbLink.href = `https://www.dndbeyond.com/monsters/${silverBullet[0]}`;
+    } else {
+      ddbLink.href = `https://www.dndbeyond.com/monsters/${index}`;
+    }
+    ddbLink.rel = 'noopener';
+    ddbLink.target = '_blank';
+    creatureCard.appendChild(ddbLink);
+
+  // populate the moster card
+    
+    // convert CR decimals to fractions where applicable
     let crFraction = challenge_rating;
-    if ( challenge_rating < 1 && challenge_rating !== 0 ) {
+    if (challenge_rating < 1 && challenge_rating !== 0) {
       if (challenge_rating === 0.125) {
         crFraction = '1/8';
       } else if (challenge_rating === 0.25) {
@@ -146,35 +158,45 @@ app.displayMonsters = async (randomMonsters) => {
         crFraction = '1/2';
       }
     }
-
-    const ccQuantityCR = document.createElement('p');
+    // const ccQuantityCR = document.createElement('p');
     let quantity = 1;
     if (category === 'group') {
       quantity = Math.ceil(app.searchCriteria.noOfPlayers * 0.75)
     } else if (category === 'horde') {
       quantity = Math.floor(app.searchCriteria.noOfPlayers * 1.75)
     }
-    ccQuantityCR.textContent = `${quantity}x  ${crFraction}CR`;
-    creatureCard.appendChild(ccQuantityCR)
+    // ccQuantityCR.textContent = `${quantity}x ${crFraction}CR`;
+    // creatureCard.appendChild(ccQuantityCR)
 
-    const ccAlignment = document.createElement('p');
-    ccAlignment.textContent = alignment;
-    creatureCard.appendChild(ccAlignment)
+  // add category, quantity and CR
+    const creatureCategory = document.createElement('p');
+    creatureCategory.textContent = `${category}: ${quantity}x ${crFraction} CR`;
+    creatureCategory.className = 'category';
+    ddbLink.appendChild(creatureCategory);
+
+  // add creature name, size, type and alignment
+    const creatureName = document.createElement('h3');
+    creatureName.textContent = randomMonsters[category].name;
+    ddbLink.appendChild(creatureName);
 
     const ccSizeType = document.createElement('p');
     ccSizeType.textContent = `${size} ${type}`;
-    creatureCard.appendChild(ccSizeType)
+    ddbLink.appendChild(ccSizeType)
+    
+    const ccAlignment = document.createElement('p');
+    ccAlignment.textContent = alignment;
+    ddbLink.appendChild(ccAlignment)
 
     const ccTotalXP = document.createElement('p');
-    // calculate total player xp gained
+  // calculate total player xp gained
     for (const xp in app.gamedata.xpByCR) {
       if (app.gamedata.xpByCR[xp] === challenge_rating) {
         ccTotalXP.textContent = `${xp * quantity}xp`;
       }
     }
-    creatureCard.appendChild(ccTotalXP)
+    ddbLink.appendChild(ccTotalXP)
 
-    // add the element to the page (append to .byNumberCategory ul)
+  // add the element to the page (append to .byNumberCategory ul)
     creaturesByCategory.appendChild(creatureCard);
   }
 }
