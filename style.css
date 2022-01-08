@@ -63,10 +63,10 @@ form {
   padding: 20px;
 }
 
-/* form div,
-form button {
-  margin-top: 10px;
-} */
+.user-choice {
+  display: flex;
+  justify-content: space-between;
+}
 
 [type="number"],
 select {
@@ -114,7 +114,7 @@ select {
   border: 5px solid red;
   border-radius: 20px;
   box-shadow: 0 10px 15px -10px rgba(0, 0, 0, 1);
-  max-width: 250px;
+  width: 250px;
   min-height: 325px;
   padding: 10px;
 }
@@ -141,4 +141,47 @@ select {
   font-size: 0.85rem;
   margin-top: 5px;
   text-transform: capitalize;
+}
+
+@media (max-width: 400px) {
+
+  .wrapper {
+    width: 95%;
+  }
+
+  form {
+    flex-direction: column;
+    /* margin-bottom: 0; */
+  }
+
+  .user-choice div,
+  button {
+    margin-top: 10px;
+  }
+
+  .user-choice {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .byNumberCategory {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(1, 100%);
+    justify-items: center;
+    position: relative;
+    /* grid-template-columns: repeat(1, 1fr); */
+  }
+
+  .creatureCard:nth-child(2) {
+    bottom: 125px;
+    transform: rotate(10deg);
+  }
+
+  .creatureCard:last-child {
+    bottom: 240px;
+    position: relative;
+    transform: rotate(5deg);
+  }
+
 }
