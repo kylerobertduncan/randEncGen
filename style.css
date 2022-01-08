@@ -49,9 +49,21 @@ a {
   width: 80%;
 }
 
+header {
+  margin-bottom: 10px;
+}
+
 h1 {
   margin: 20px auto 10px;
   text-shadow: oldlace 2px 1px;
+}
+
+.intro {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  color: oldlace;
+  padding: 20px;
+  text-shadow: black 2px 1px;
 }
 
 form {
@@ -143,11 +155,28 @@ select {
   text-transform: capitalize;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 850px) {
 
   .wrapper {
     width: 95%;
   }
+
+  .byNumberCategory {
+    gap: 0px;
+  }
+
+  .creatureCard:first-child {
+    position: relative;
+    right: -10px;
+  }
+
+  .creatureCard:last-child {
+    position: relative;
+    right: 10px;
+  }
+}
+
+@media (max-width: 400px) {
 
   form {
     flex-direction: column;
